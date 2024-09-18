@@ -103,7 +103,7 @@ class VenueForm(Form):
     )
     state = SelectField(
         'state', validators=[DataRequired()],
-
+        choices=state_choices
     )
     address = StringField(
         'address', validators=[DataRequired()]

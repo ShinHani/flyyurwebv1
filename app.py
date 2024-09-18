@@ -188,11 +188,11 @@ def show_venue(venue_id):
         # (check) on successful db insert, flash success
         flash('Venue ' + venue.name + ' was successfully displayed!')
         # To display in the template each gender as a whole word by color span
-        genres = "".join(venue.genres).strip('{}')
+
         data = {
             "id": venue.id,
             "name": venue.name,
-            "genres": genres.split(','),
+            "genres": venue.genres,
             "address": venue.address,
             "city": venue.city,
             "state": venue.state,
@@ -242,11 +242,6 @@ def create_venue_submission():
 
     form = VenueForm(request.form, meta={'csrf': False})
     if form.validate():
-        if seeking_talent == 'y':
-            seeking_talent = True
-        else:
-            seeking_talent = False
-
         try:
             venue = Venue(
                 name=form.name.data,
@@ -394,12 +389,11 @@ def show_artist(artist_id):
         print(sys.exc_info())
     else:
         flash(artist.name + ' has been successfully listed!')
-        genres = "".join(artist.genres).strip('{}')
 
         data = {
             "id": artist.id,
             "name": artist.name,
-            "genres": genres.split(','),
+            "genres": artist.genres,
             "city": artist.city,
             "state": artist.state,
             "phone": artist.phone,
